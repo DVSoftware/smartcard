@@ -42,7 +42,7 @@ class Card extends EventEmitter {
 
     this.emit('command-issued', { card: this, command: commandApdu });
     if (callback) {
-      this.device.transmit(buffer, 0x102, protocol, (err, response) => {
+      this.device.transmit(buffer, 0xFDE8, protocol, (err, response) => {
         this.emit('response-received', {
           card: this,
           command: commandApdu,
@@ -52,7 +52,7 @@ class Card extends EventEmitter {
       });
     } else {
       return new Promise((resolve, reject) => {
-        this.device.transmit(buffer, 0x102, protocol, (err, response) => {
+        this.device.transmit(buffer, 0xFDE8, protocol, (err, response) => {
           if (err) reject(err);
           else {
             this.emit('response-received', {
